@@ -1,0 +1,23 @@
+{
+  "name": "server",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "dependencies": {},
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "development" : "NODE_ENV=development nodemon app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/4shers/4shers-server.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/4shers/4shers-server/issues"
+  },
+  "homepage": "https://github.com/4shers/4shers-server#readme"
+}
