@@ -15,9 +15,12 @@ class BucketShareClass {
 
     static findAllPrivate(req, res, next) {
         console.log('dari find all private bucket')
+        let author = req.loggedUser._id
+
         bucketShareModel
             .find({
-                status: 'private'
+                status: 'private',
+                author
             })
             .then(files => {
                 res.json(files)
