@@ -1,7 +1,6 @@
 const User = require('../models/user');
 const { compareHash } = require('../helpers/bcrypt');
-const jwt = require('jsonwebtoken');
-
+const { sign } = require('../helpers/token');
 class ControllerUser {
 
   static signUp(req, res, next) {
@@ -19,11 +18,11 @@ class ControllerUser {
     .then((found) => {
       if (found) {
         if (compareHash(req.body.password, found.password)) {
-          const token = jwt.sign({
+          const token = sign({
             id: found._id,
             username: found.username,
             email : found.email
-          }, process.env.JWT_SECRET);
+          })
           res.status(200).json({
             token
           })
