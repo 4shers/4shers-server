@@ -32,7 +32,7 @@ module.exports = {
         })
     }
   },
-  authorization: (req, res, next) => {
+  bucketAuthorization: (req, res, next) => {
     let bucketId = req.params.bucketId
     let userId = req.loggedUser._id
 

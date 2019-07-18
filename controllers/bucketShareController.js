@@ -39,29 +39,13 @@ class BucketShareClass {
 
     static create(req, res, next) {
         console.log('dari create bucket')
-        let {
-            name,
-            status
-        } = req.body
-        let {
-            originalname,
-            mimetype,
-            cloudStorageObject,
-            cloudStoragePublicUrl
-        } = req.file
 
         let newBucket = {
-            name,
-            files: {
-                originalname,
-                mimetype,
-                cloudStorageObject,
-                cloudStoragePublicUrl
-            },
-            status: status || 'public',
+            bucketname: req.body.bucketname,
+            status: req.body.status || 'public',
             author: req.loggedUser._id
         }
-        console.log(req.body, req.file)
+        
         bucketShareModel
             .create(newBucket)
             .then(created => {
@@ -71,41 +55,27 @@ class BucketShareClass {
     }
 
     static updatefile(req, res, next) {
-        console.log('dari update bucket')
-        let bucketId = req.params.bucketId
-        let {
-            name,
-            status
-        } = req.body
-        let {
-            originalname,
-            mimetype,
-            cloudStorageObject,
-            cloudStoragePublicUrl
-        } = req.file
-        let update = {
-            originalname,
-            mimetype,
-            cloudStorageObject,
-            cloudStoragePublicUrl
-        }
+        console.log('dari updatefile bucket')
+        console.log(req.body)
+            let bucketId = req.params.bucketId
+            let fileId = req.body.fileId
 
-        if (name) {
-            update.name = name
-        }
-        if (status) {
-            update.status = status
-        }
-
-        bucketShareModel
-            .findByIdAndUpdate(bucketId, update, {
-                new: true
-            })
-            .then(foundBucket => {
-                res.json(foundBucket)
-            })
-            .catch(next)
+            bucketShareModel
+                .findByIdAndUpdate(bucketId,{
+                    $push : {
+                        files: fileId
+                    }
+                },{
+                    new: true
+                })
+                .then( updatedBucket => {
+                    console.log(updatedBucket)
+                    res.json(updatedBucket)
+                })
+                .catch(next)
+        
     }
+
     static updatenofile(req, res, next) {
         console.log('dari update bucket')
         let bucketId = req.params.bucketId

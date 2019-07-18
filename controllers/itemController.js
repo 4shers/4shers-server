@@ -1,4 +1,5 @@
 const itemModel = require('../models/item')
+const bucketModel = require('../models/bucketShareModel')
 
 class ItemController {
     static findAll(req, res, next) {
@@ -59,15 +60,32 @@ class ItemController {
 
     static delete(req, res, next) {
         let itemId = req.params.itemId
+        // let bucketId = req.body.bucketId
 
-        itemModel
-            .findByIdAndDelete(itemId)
+        console.log(itemId,'ini item id')
+
+        bucketModel
+            .find({
+                files: { $in:[itemId]}
+            })
+            .then(result => {
+                console.log(result[0]._id, 'ini looggggg')
+                return bucketModel
+                        .findByIdAndUpdate(result[0]._id,{
+                            $pull: {
+                                files: itemId
+                            }
+                        }, {
+                            new: true
+                        })
+            })
+            .then(updated => {
+                console.log(updated,'ini id updated...')
+                return itemModel
+                    .findByIdAndDelete(itemId)
+            })
             .then(deleted => {
-                console.log(deleted)
-                res.json({
-                    data: deleted,
-                    message: 'deleted data' + deleted.filename + 'with id' + deleted._id
-                })
+                res.json({message: `deleted`, deleted})
             })
             .catch(next)
     }
