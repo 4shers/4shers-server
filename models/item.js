@@ -6,20 +6,27 @@ const itemSchema = new Schema({
     type : String,
     required : [true, `Please Provide Name for This File`],
   },
-  filePath: {
+  filepath: {
     type : String,
     required : [true, `Please Provide File`]
+  },
+  filetype: {
+    type: String,
+    required: [true, `file type needed`]
   },
   creator: { 
     type : Schema.Types.ObjectId,
     ref : 'user'
   },
-  bucket : {
+  bucketId : {
     type : Schema.Types.ObjectId,
     ref : 'BucketShare'
   },
+  status: {
+    type:  String,
+    default: 'public'
+  }
 }, {
-  versionKey : false,
   timestamps : true
 });
 

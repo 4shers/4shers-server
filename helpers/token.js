@@ -6,11 +6,14 @@ module.exports = {
   },
   verify : function(token) {
     try {
-      const decoded = jwt.verify(token, secret);
+      console.log(token)
+      console.log(jwt.verify(token, process.env.JWT_SECRET))
+      var decoded = jwt.verify(token, process.env.JWT_SECRET)
       if (decoded) {
         return decoded
       }
     } catch(err) {
+      console.log('hmmmmmmm')
       throw {
         Status : 404,
         message : `Invalid Token`

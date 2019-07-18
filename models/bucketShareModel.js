@@ -12,7 +12,8 @@ let bucketShareSchema = new Schema({
         type: String
     },
     author: {
-        type: Schema.Types.ObjectId
+        type: Schema.Types.ObjectId,
+        ref: 'user'
     }
 },{
     timestamps: true
