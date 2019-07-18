@@ -1,5 +1,6 @@
 const User = require('../models/user');
 const { compareHash } = require('../helpers/bcrypt');
+const jwt = require('jsonwebtoken');
 
 class ControllerUser {
 
@@ -22,7 +23,7 @@ class ControllerUser {
             id: found._id,
             username: found.username,
             email : found.email
-          }, process.env.SECRET_TOKEN);
+          }, process.env.JWT_SECRET);
           res.status(200).json({
             token
           })
