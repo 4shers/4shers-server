@@ -138,6 +138,76 @@ GET '/private'
       }
     ]
 ````
+#### search bucket by name
+````
+GET '/search'
+````
+````
+  request :
+    - query :
+      1. ?search={{ user input bucketname }} 
+      
+````
+````
+  response :
+    [
+    {
+        "files": [],
+        "_id": "5d30b93c7e27341d6f792d52",
+        "bucketname": "yuda",
+        "status": "private",
+        "author": "5d308afa3a3a4904af8c295b",
+        "createdAt": "2019-07-18T18:23:56.843Z",
+        "updatedAt": "2019-07-18T18:53:09.158Z",
+        "__v": 0
+    },
+    {
+        "files": [],
+        "_id": "5d30c9fc998dc4382e1112e2",
+        "bucketname": "yuda",
+        "status": "public",
+        "author": "5d308afa3a3a4904af8c295b",
+        "createdAt": "2019-07-18T19:35:24.200Z",
+        "updatedAt": "2019-07-18T19:35:24.200Z",
+        "__v": 0
+    }
+]
+````
+#### get all users bucket
+````
+GET '/useBucket'
+````
+````
+  request :
+    -headers : 
+      1. token
+      
+````
+````
+  response :
+    [
+    {
+        "files": [],
+        "_id": "5d30b93c7e27341d6f792d52",
+        "bucketname": "yuda",
+        "status": "private",
+        "author": "5d308afa3a3a4904af8c295b",
+        "createdAt": "2019-07-18T18:23:56.843Z",
+        "updatedAt": "2019-07-18T18:53:09.158Z",
+        "__v": 0
+    },
+    {
+        "files": [],
+        "_id": "5d30c9fc998dc4382e1112e2",
+        "bucketname": "yuda",
+        "status": "public",
+        "author": "5d308afa3a3a4904af8c295b",
+        "createdAt": "2019-07-18T19:35:24.200Z",
+        "updatedAt": "2019-07-18T19:35:24.200Z",
+        "__v": 0
+    }
+]
+````
 #### make new  bucket
 ````
 POST '/'
