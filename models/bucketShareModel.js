@@ -6,7 +6,8 @@ let bucketShareSchema = new Schema({
         type: String,
     },
     files: [{
-        type: Object
+        type: Schema.Types.ObjectId,
+        ref: 'item'
     }],
     status: {
         type: String

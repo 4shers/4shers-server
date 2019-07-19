@@ -20,6 +20,8 @@ class BucketShareClass {
             .find({
                 author: userId
             })
+            .populate('files')
+            // .populate('author')
             .then( buckets => {
                 console.log(buckets)
                 res.json(buckets)
