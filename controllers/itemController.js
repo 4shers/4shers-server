@@ -16,6 +16,22 @@ class ItemController {
             .catch(next)
     }
 
+    static search(req,res,next) {
+        console.log('udah di search')
+        let query = req.query.search
+
+        console.log(query)
+        itemModel
+            .find({
+                filename: {$regex : `.*${query}.*`}
+            })
+            .then(found => {
+                console.log(found)
+                res.json(found)
+            })
+            .catch(next)
+    }
+
     static findOne(req, res, next) {
         let itemId = req.params.itemId
 

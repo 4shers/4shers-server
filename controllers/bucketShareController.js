@@ -13,6 +13,21 @@ class BucketShareClass {
             .catch(next)
     }
 
+    static usersBucket(req,res,next){
+        let userId = req.loggedUser._id
+
+        bucketShareModel
+            .find({
+                author: userId
+            })
+            .then( buckets => {
+                console.log(buckets)
+                res.json(buckets)
+            })
+            .catch(next)
+        
+    }
+    
     static findAllPrivate(req, res, next) {
         console.log('dari find all private bucket')
         let author = req.loggedUser._id
@@ -113,6 +128,21 @@ class BucketShareClass {
             .then(deleted => {
                 console.log(deleted, 'berhasil didelet')
                 res.json(deleted)
+            })
+            .catch(next)
+    }
+
+    static search(req,res,next) {
+        let query = req.query.search
+
+        console.log(query)
+        bucketShareModel
+            .find({
+                bucketname: {$regex : `.*${query}.*`}
+            })
+            .then(found => {
+                console.log(found)
+                res.json(found)
             })
             .catch(next)
     }

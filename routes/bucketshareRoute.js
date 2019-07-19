@@ -5,9 +5,11 @@ const { authentication, bucketAuthorization } = require('../middlewares/auth')
 
 router.get('/public', bucketShareController.findAllPublic) //get all bucket //done
 router.get('/getone/:bucketId', bucketShareController.findOne) //get a bucket //done
+router.get('/search',bucketShareController.search)
 
 router.use('/',authentication)
 
+router.get('/userBucket',bucketShareController.usersBucket)
 router.get('/private', bucketShareController.findAllPrivate) //get all bucket //done
 
 router.post('/', bucketShareController.create) // create a bucket //done
