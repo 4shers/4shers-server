@@ -17,6 +17,7 @@ class ItemController {
     }
 
     static search(req,res,next) {
+        console.log('udah di search')
         let query = req.query.search
 
         console.log(query)
