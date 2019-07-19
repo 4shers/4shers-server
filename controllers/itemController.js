@@ -16,14 +16,16 @@ class ItemController {
             .catch(next)
     }
 
-    static search(req,res,next) {
+    static search(req, res, next) {
         console.log('udah di search')
         let query = req.query.search
 
         console.log(query)
         itemModel
             .find({
-                filename: {$regex : `.*${query}.*`}
+                filename: {
+                    $regex: `.*${query}.*`
+                }
             })
             .then(found => {
                 console.log(found)
@@ -68,8 +70,18 @@ class ItemController {
         itemModel
             .create(createData)
             .then(created => {
-                console.log(created)
-                res.json(created)
+                return bucketModel
+                    .findByIdAndUpdate(bucketId, {
+                        $push: {
+                            files: created._id
+                        }
+                    }, {
+                        new: true
+                    })
+            })
+            .then(updated => {
+                console.log(updated)
+                res.json(updated)
             })
             .catch(next)
     }
@@ -78,30 +90,35 @@ class ItemController {
         let itemId = req.params.itemId
         // let bucketId = req.body.bucketId
 
-        console.log(itemId,'ini item id')
+        console.log(itemId, 'ini item id')
 
         bucketModel
             .find({
-                files: { $in:[itemId]}
+                files: {
+                    $in: [itemId]
+                }
             })
             .then(result => {
                 console.log(result[0]._id, 'ini looggggg')
                 return bucketModel
-                        .findByIdAndUpdate(result[0]._id,{
-                            $pull: {
-                                files: itemId
-                            }
-                        }, {
-                            new: true
-                        })
+                    .findByIdAndUpdate(result[0]._id, {
+                        $pull: {
+                            files: itemId
+                        }
+                    }, {
+                        new: true
+                    })
             })
             .then(updated => {
-                console.log(updated,'ini id updated...')
+                console.log(updated, 'ini id updated...')
                 return itemModel
                     .findByIdAndDelete(itemId)
             })
             .then(deleted => {
-                res.json({message: `deleted`, deleted})
+                res.json({
+                    message: `deleted`,
+                    deleted
+                })
             })
             .catch(next)
     }
