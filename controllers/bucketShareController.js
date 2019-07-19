@@ -27,6 +27,7 @@ class BucketShareClass {
             .catch(next)
         
     }
+    
     static findAllPrivate(req, res, next) {
         console.log('dari find all private bucket')
         let author = req.loggedUser._id

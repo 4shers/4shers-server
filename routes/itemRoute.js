@@ -5,6 +5,7 @@ const { UploadToGCS, multer } = require('../middlewares/gcsHelper')
 
 router.get('/', itemRController.findAll)
 router.get('/:itemId', itemRController.findOne)
+router.get('/',itemRController.search)
 
 router.use('/', authentication)
 
